@@ -1,0 +1,58 @@
+body {
+background-color: white;
+}
+p{
+    margin: 0%;
+    padding: 0%;
+font-size: 2.5em;
+}
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+[contenteditable="true"].single-line {
+    white-space: nowrap;
+    width:200px;
+    overflow: hidden;
+} 
+[contenteditable="true"].single-line br {
+    display:none;
+}
+[contenteditable="true"].single-line * {
+    display:inline;
+    white-space:nowrap;
+}
+.id{
+    padding: 1%;
+    border-style: solid;
+    border-color: black;
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+    width: 40vh;
+    height: 40vh;
+    /* text-align: center;  */
+}
+#edit {
+    /* width:25em;height:4em; */
+    background-color: #E2DCCD;
+    padding:0.1em;
+    margin-top: 1em;
+    resize: both;
+    overflow: auto;
+    cursor:text;
+    }
+  
+  #edit a {
+    cursor:pointer;
+  }
+
+  span{
+    background-color: #E2DCCD;
+    padding:0.1em;
+    margin-top: 1em;
+    resize: both;
+    overflow: auto;
+    cursor:text;
+  }
