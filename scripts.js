@@ -1,37 +1,37 @@
 // Setup before functions
-let typingTimer;
-const doneTypingInterval = 1000; // Time in ms (1 second)
-const intialInput = document.getElementById('edit');
-const contents = ["and I am from", "and I work in", "and no one gives a flying..."];
+let typingTimeout;
+const typingDelay = 1000; 
+const userEditableElement = document.getElementById('edit');
+const followUpMessages = ["and I am from", "and I work in", "and no one gives a flying..."];
 
 // On keyup, start the countdown
-intialInput.addEventListener('keyup', () => {
-    clearTimeout(typingTimer);
-    if (intialInput.innerText) {
-        typingTimer = setTimeout(() => doneTyping(0), doneTypingInterval);
+userEditableElement.addEventListener('keyup', () => {
+    clearTimeout(typingTimeout);
+    if (userEditableElement.innerText) {
+        typingTimeout = setTimeout(() => addNextMessage(0), typingDelay);
     }
 });
 
-// User is "finished typing," do something
-function doneTyping(index) {
-    if (index < contents.length) {
-        const content = document.getElementById("content");
-        content.innerHTML += "&nbsp;" + contents[index];
-        if (index < contents.length - 1) {
-            const newSpan = document.createElement('span');
-            newSpan.contentEditable = "true";
-            newSpan.setAttribute("contenteditable", "true");
-            newSpan.setAttribute("id", `edit${index + 1}`);
-            content.appendChild(newSpan);
+// User is "finished typing," add the next piece of text
+function addNextMessage(index) {
+    if (index < followUpMessages.length) {
+        const contentElement = document.getElementById("content");
+        contentElement.innerHTML += followUpMessages[index] + "&nbsp;" 
+        if (index < followUpMessages.length - 1) {
+            const newEditableSpan = document.createElement('span');
+            newEditableSpan.contentEditable = "true";
+            newEditableSpan.setAttribute("contenteditable", "true");
+            newEditableSpan.setAttribute("id", `edit${index + 1}`);
+            contentElement.appendChild(newEditableSpan);
             
-            newSpan.addEventListener('keyup', () => {
-                clearTimeout(typingTimer);
-                if (newSpan.innerText) {
-                    typingTimer = setTimeout(() => doneTyping(index + 1), doneTypingInterval);
+            newEditableSpan.addEventListener('keyup', () => {
+                clearTimeout(typingTimeout);
+                if (newEditableSpan.innerText) {
+                    typingTimeout = setTimeout(() => addNextMessage(index + 1), typingDelay);
                 }
             });
         }
     } else {
-        console.log("Finished typing all content.");
+        console.log("Finished adding all follow-up messages.");
     }
 }
