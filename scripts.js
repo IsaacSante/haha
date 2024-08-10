@@ -1,13 +1,13 @@
 // Setup before functions
 let typingTimer;
 const doneTypingInterval = 1000; // Time in ms (1 second)
-const myInput = document.getElementById('edit');
+const intialInput = document.getElementById('edit');
 const contents = ["and I am from", "and I work in", "and no one gives a flying..."];
 
 // On keyup, start the countdown
-myInput.addEventListener('keyup', () => {
+intialInput.addEventListener('keyup', () => {
     clearTimeout(typingTimer);
-    if (myInput.innerText) {
+    if (intialInput.innerText) {
         typingTimer = setTimeout(() => doneTyping(0), doneTypingInterval);
     }
 });
@@ -15,7 +15,7 @@ myInput.addEventListener('keyup', () => {
 // User is "finished typing," do something
 function doneTyping(index) {
     if (index < contents.length) {
-        const content = document.getElementById("first");
+        const content = document.getElementById("content");
         content.innerHTML += "&nbsp;" + contents[index];
         if (index < contents.length - 1) {
             const newSpan = document.createElement('span');
