@@ -28,6 +28,21 @@ p {
   white-space: nowrap;
 }
 
+[contenteditable="true"]:empty::after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 1.2em;
+  background-color: #000;
+  animation: blink 0.7s infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .parent {
   padding: 1%;
   border-style: solid;

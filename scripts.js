@@ -1,8 +1,19 @@
 // Setup before functions
 let typingTimeout;
-const typingDelay = 1000; 
+const typingDelay = 2000; 
 const userEditableElement = document.getElementById('edit');
 const followUpMessages = ["and I am from", "and I work in", "and no one gives a flying..."];
+
+function focusLatestEditableSpan() {
+    const editableSpans = document.querySelectorAll('[contenteditable="true"]');
+    const latestSpan = editableSpans[editableSpans.length - 1];
+    if (latestSpan) {
+        latestSpan.focus();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', focusLatestEditableSpan);
+
 
 // On keyup, start the countdown
 userEditableElement.addEventListener('keyup', () => {
@@ -31,9 +42,11 @@ function addNextMessage(index) {
                 typingTimeout = setTimeout(() => addNextMessage(index + 1), typingDelay);
             }
         });
+        focusLatestEditableSpan();
     } else {
         // This is the last message, add the final text after a delay
-        setTimeout(addFinalText, typingDelay);
+        const finalDelay = 1000;
+        setTimeout(addFinalText, finalDelay);
     }
 }
 
@@ -48,7 +61,7 @@ function addFinalText() {
 
 function createTextRain() {
     const characters = 'hahahahahahhahahahahahahahahhahahahahahahahaaahahahahahahahah';
-    const numberOfDrops = 100;
+    const numberOfDrops = 200;
 
     for (let i = 0; i < numberOfDrops; i++) {
         setTimeout(() => {
