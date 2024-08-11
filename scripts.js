@@ -60,7 +60,7 @@ function addFinalText() {
 }
 
 function createTextRain() {
-    const characters = 'hahahahahahhahahahahahahahahhahahahahahahahaaahahahahahahahah';
+    const characters = [...'hahahahahahh😂hahaha🤣ahahahahh😂hahahahahahaaah🤣hahahahahahah'];
     const numberOfDrops = 200;
 
     for (let i = 0; i < numberOfDrops; i++) {
