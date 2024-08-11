@@ -36,11 +36,33 @@ function addNextMessage(index) {
         setTimeout(addFinalText, typingDelay);
     }
 }
+
 // Final text displayed
 function addFinalText() {
-   // console.log("adding final text")
     const finalText = document.createElement('p');
     finalText.textContent = "Jk remember you are valuable and be kind to yourself";
     finalText.className = 'final-text';
     document.body.appendChild(finalText);
+    createTextRain();
+}
+
+function createTextRain() {
+    const characters = 'hahahahahahhahahahahahahahahhahahahahahahahaaahahahahahahahah';
+    const numberOfDrops = 100;
+
+    for (let i = 0; i < numberOfDrops; i++) {
+        setTimeout(() => {
+            const drop = document.createElement('div');
+            drop.className = 'text-drop';
+            drop.style.left = `${Math.random() * 100}vw`;
+            drop.style.animationDuration = `${Math.random() * 2 + 3}s`;
+            drop.textContent = characters[Math.floor(Math.random() * characters.length)];
+            document.body.appendChild(drop);
+
+            // Remove the drop after animation
+            drop.addEventListener('animationend', () => {
+                document.body.removeChild(drop);
+            });
+        }, i * 50); // Stagger the creation of drops
+    }
 }
