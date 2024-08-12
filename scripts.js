@@ -53,14 +53,14 @@ function addNextMessage(index) {
 // Final text displayed
 function addFinalText() {
     const finalText = document.createElement('p');
-    finalText.textContent = "Jk remember you are valuable and be kind to yourself";
+    finalText.textContent = "Jk remember you are valuable and be kind to yourself :-)";
     finalText.className = 'final-text';
     document.body.appendChild(finalText);
     createTextRain();
 }
 
 function createTextRain() {
-    const characters = [...'hahahahahahh😂hahaha🤣ahahahahh😂hahahahahahaaah🤣hahahahahahah'];
+    const characters = 'hahahahahahhhahahaahahahahhhahahahahahaaahhahahahahahah';
     const numberOfDrops = 200;
 
     for (let i = 0; i < numberOfDrops; i++) {
