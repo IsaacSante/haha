@@ -62,6 +62,7 @@ function addFinalText() {
 function createTextRain() {
     const characters = 'hahahahahahhhahahaahahahahhhahahahahahaaahhahahahahahah';
     const numberOfDrops = 200;
+    let dropsFinished = 0;
 
     for (let i = 0; i < numberOfDrops; i++) {
         setTimeout(() => {
@@ -72,10 +73,35 @@ function createTextRain() {
             drop.textContent = characters[Math.floor(Math.random() * characters.length)];
             document.body.appendChild(drop);
 
-            // Remove the drop after animation
+            // Remove the drop after animation and check if all drops are finished
             drop.addEventListener('animationend', () => {
                 document.body.removeChild(drop);
+                dropsFinished++;
+                if (dropsFinished === numberOfDrops) {
+                    // All drops have finished, call resetHaha after a short delay
+                    setTimeout(resetHaha, 1000);
+                }
             });
         }, i * 50); // Stagger the creation of drops
     }
+}
+
+function resetHaha() {
+    const contentElement = document.getElementById("content");
+    contentElement.innerHTML = 'Hello my name is <span id="edit" contenteditable="true" class="single-line"></span>';
+
+    const userEditableElement = document.getElementById('edit');
+    userEditableElement.innerText = '';
+    const additionalSpans = document.querySelectorAll('[id^="edit"]:not(#edit)');
+    additionalSpans.forEach(span => span.remove());
+
+    const finalText = document.querySelector('.final-text');
+    if (finalText) {
+        finalText.remove();
+    }
+
+    const textDrops = document.querySelectorAll('.text-drop');
+    textDrops.forEach(drop => drop.remove());
+    clearTimeout(typingTimeout);
+    focusLatestEditableSpan();
 }
