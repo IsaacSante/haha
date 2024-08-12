@@ -1,8 +1,21 @@
 // Setup before functions
 let typingTimeout;
 const typingDelay = 2000; 
-const userEditableElement = document.getElementById('edit');
+let userEditableElement;
 const followUpMessages = ["and I am from", "and I work in", "and no one gives a flying..."];
+const instructionsElement = document.getElementById('instructions');
+
+function updateInstructions(text) {
+  instructionsElement.textContent = text;
+}
+
+function hideInstructions() {
+  instructionsElement.style.opacity = '0';
+}
+
+function showInstructions() {
+  instructionsElement.style.opacity = '1';
+}
 
 function focusLatestEditableSpan() {
     const editableSpans = document.querySelectorAll('[contenteditable="true"]');
@@ -12,18 +25,23 @@ function focusLatestEditableSpan() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', focusLatestEditableSpan);
+function setupEventListeners() {
+    userEditableElement = document.getElementById('edit');
+    userEditableElement.addEventListener('keyup', () => {
+        clearTimeout(typingTimeout);
+        if (userEditableElement.innerText) {
+            updateInstructions("Loading response from haha ai");
+            typingTimeout = setTimeout(() => addNextMessage(0), typingDelay);
+        }
+    });
+}
 
-
-// On keyup, start the countdown
-userEditableElement.addEventListener('keyup', () => {
-    clearTimeout(typingTimeout);
-    if (userEditableElement.innerText) {
-        typingTimeout = setTimeout(() => addNextMessage(0), typingDelay);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    setupEventListeners();
+    focusLatestEditableSpan();
+    showInstructions();
 });
 
-// User is "finished typing," add the next piece of text
 function addNextMessage(index) {
     const contentElement = document.getElementById("content");
     contentElement.innerHTML += followUpMessages[index] + "&nbsp;";
@@ -39,14 +57,19 @@ function addNextMessage(index) {
         newEditableSpan.addEventListener('keyup', () => {
             clearTimeout(typingTimeout);
             if (newEditableSpan.innerText) {
+                updateInstructions("Loading response from haha ai");
                 typingTimeout = setTimeout(() => addNextMessage(index + 1), typingDelay);
             }
         });
         focusLatestEditableSpan();
+        updateInstructions("Start typing");
     } else {
         // This is the last message, add the final text after a delay
         const finalDelay = 1000;
-        setTimeout(addFinalText, finalDelay);
+        setTimeout(() => {
+            hideInstructions();
+            setTimeout(addFinalText, 300); // Hide instructions before showing final text
+        }, finalDelay);
     }
 }
 
@@ -90,8 +113,6 @@ function resetHaha() {
     const contentElement = document.getElementById("content");
     contentElement.innerHTML = 'Hello my name is <span id="edit" contenteditable="true" class="single-line"></span>';
 
-    const userEditableElement = document.getElementById('edit');
-    userEditableElement.innerText = '';
     const additionalSpans = document.querySelectorAll('[id^="edit"]:not(#edit)');
     additionalSpans.forEach(span => span.remove());
 
@@ -102,6 +123,10 @@ function resetHaha() {
 
     const textDrops = document.querySelectorAll('.text-drop');
     textDrops.forEach(drop => drop.remove());
+
     clearTimeout(typingTimeout);
+    showInstructions();
+    updateInstructions("Start typing");
+    setupEventListeners();  
     focusLatestEditableSpan();
 }
