@@ -83,9 +83,9 @@ function addFinalText() {
 }
 
 function createTextRain() {
-    const characters = 'hahahahahahhhahahaahahahahhhahahahahahaaahhahahahahahah';
-    const numberOfDrops = 200;
+    const numberOfDrops = 100;
     let dropsFinished = 0;
+    const haVariations = ["ha", "haha"];
 
     for (let i = 0; i < numberOfDrops; i++) {
         setTimeout(() => {
@@ -93,19 +93,18 @@ function createTextRain() {
             drop.className = 'text-drop';
             drop.style.left = `${Math.random() * 100}vw`;
             drop.style.animationDuration = `${Math.random() * 2 + 3}s`;
-            drop.textContent = characters[Math.floor(Math.random() * characters.length)];
+            
+            drop.textContent = haVariations[Math.floor(Math.random() * haVariations.length)];
             document.body.appendChild(drop);
 
-            // Remove the drop after animation and check if all drops are finished
             drop.addEventListener('animationend', () => {
                 document.body.removeChild(drop);
                 dropsFinished++;
                 if (dropsFinished === numberOfDrops) {
-                    // All drops have finished, call resetHaha after a short delay
                     setTimeout(resetHaha, 1000);
                 }
             });
-        }, i * 50); // Stagger the creation of drops
+        }, i * 50); 
     }
 }
 
