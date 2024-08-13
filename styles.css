@@ -15,7 +15,6 @@ body {
   transition: opacity 0.3s ease;
 }
 
-
 p {
   margin: 0;
   padding: 0;
@@ -100,32 +99,9 @@ p {
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 20;
-  background-color: rgba(255, 255, 255, 0.8);
   
-  background-image: linear-gradient(
-    to right,
-    #ff0000,
-    #ff0000,
-    #ff7f00,
-    #ffff00,
-    #00ff00,
-    #0000ff,
-    #0000ff,
-    #8b00ff,
-    #ff0000,
-    #ff0000
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: enhanced-rainbow-animation 6s linear infinite;
 }
 
-@keyframes enhanced-rainbow-animation {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
 .text-drop {
   position: fixed;
   top: -20px;
@@ -138,5 +114,44 @@ p {
 @keyframes rainFall {
   to {
     transform: translateY(calc(100vh + 20px));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .parent {
+    width: 90vw;
+    min-height: 90vw;
+  }
+
+  p {
+    font-size: 2em;
+  }
+
+  .instructions {
+    width: 90%;
+    font-size: 1.2em;
+  }
+
+  .final-text {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .parent {
+    width: 95vw;
+    min-height: 95vw;
+  }
+
+  p {
+    font-size: 1.8em;
+  }
+
+  .instructions {
+    font-size: 1em;
+  }
+
+  .final-text {
+    font-size: 1em;
   }
 }
