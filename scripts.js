@@ -75,7 +75,7 @@ function addNextMessage(index) {
 
 // Final text displayed
 function addFinalText() {
-    const finalText = document.createElement('p');
+    const finalText = document.createElement('h1');
     finalText.textContent = "Jk remember you are valuable and be kind to yourself :-)";
     finalText.className = 'final-text';
     document.body.appendChild(finalText);
